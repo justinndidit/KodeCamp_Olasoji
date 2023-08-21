@@ -1,36 +1,32 @@
 "use strict";
 const input = require("prompt-sync")();
 
-const num = Math.trunc(Math.random() * 10 + 1);
+let isPlaying = true;
 
-function guessNumber(number) {
+function guessNumber() {
   console.log("Game started\n");
-  let won = false;
-  console.log('Please Enter "0" to quit\n');
-  do {
-    const guess = input("what is your Guess?: ");
-    if (Number(guess) === number) {
-      won = true;
-      console.log("You Won\n");
-    } else if (guess === "exit") {
-      const cancel = input("Please enter N to exit game and Y to continue: ");
-      if (cancel === "n" || cancel === "N") {
-        process.exit(0);
-      } else {
-        guessNumber(number);
-      }
-    } else {
-      console.log("You lose");
+  console.log('Please Enter "Exit" to quit Game\n');
 
-      if (guess < number) {
-        console.log("Hint: You need to guess higher\n");
-      } else {
-        console.log("Hint: You need to guess lower\n");
-      }
+  const num = Math.trunc(Math.random() * 10 + 1);
+  console.log(num);
+  const guess = input("what is your Guess?: ");
+
+  if (Number(guess) === num) {
+    console.log("You Won\n");
+  } else if (guess.toLowerCase() === "exit") {
+    const cancel = input("Please enter N to exit game and Y to continue: ");
+    if (cancel === "n" || cancel === "N") {
+      isPlaying = false;
+    } else {
+      guessNumber();
     }
-  } while (num !== "exit");
+  } else {
+    console.log("You lose! The random number generated is " + num);
+  }
 
   console.log("Game Ended\n");
 }
 
-guessNumber(num);
+do {
+  guessNumber();
+} while (isPlaying);

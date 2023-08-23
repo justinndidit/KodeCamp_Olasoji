@@ -8,7 +8,7 @@ function guessNumber() {
   console.log('Please Enter "Exit" to quit Game\n');
 
   const num = Math.trunc(Math.random() * 10 + 1);
-  console.log(num);
+  
   const guess = input("what is your Guess?: ");
 
   if (Number(guess) === num) {
